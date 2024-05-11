@@ -1,9 +1,13 @@
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:mysalon/elements/color.dart';
+import 'package:mysalon/elements/alertbox.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mysalon/services/firestore/checkuserindb.dart';
 import 'package:mysalon/services/permission/onStartPermisisons.dart';
 
 class SpalshScreen extends StatefulWidget {
@@ -26,6 +30,37 @@ class _SpalshScreenState extends State<SpalshScreen> {
       Fluttertoast.showToast(
           msg: "This App need Location Permission for work fine");
       return;
+    }
+
+    await Future.delayed(Duration(seconds: 3));
+
+    var user = FirebaseAuth.instance.currentUser;
+
+    SharedPreferences session = await SharedPreferences.getInstance();
+
+    alertBox(context);
+
+    if (user == null) {
+      print("No User Found");
+
+      if (session.getBool("loaded") == null) {
+        Navigator.of(context).pop();
+        // Navigator.of(context)
+        //     .pushReplacement(MaterialPageRoute(builder: (context) {
+        //   return guideScreen();
+        // }));
+      } else {
+        Navigator.of(context).pop();
+        // Navigator.of(context)
+        //     .pushReplacement(MaterialPageRoute(builder: (context) {
+        //   return loginScreen();
+        // }));
+      }
+    } else {
+      Navigator.of(context).pop();
+      print("User Matched");
+
+      checkUserindb(context);
     }
   }
 
