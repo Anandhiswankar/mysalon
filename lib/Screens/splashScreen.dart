@@ -1,8 +1,10 @@
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:mysalon/elements/color.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:mysalon/services/permission/onStartPermisisons.dart';
 
 class SpalshScreen extends StatefulWidget {
   const SpalshScreen({super.key});
@@ -16,6 +18,14 @@ class _SpalshScreenState extends State<SpalshScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+  }
+
+  waitfortime() async {
+    if (!await onStartPermission()) {
+      Fluttertoast.showToast(
+          msg: "This App need Location Permission for work fine");
+      return;
+    }
   }
 
   @override
