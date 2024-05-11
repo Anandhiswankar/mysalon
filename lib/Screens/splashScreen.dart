@@ -18,6 +18,8 @@ class _SpalshScreenState extends State<SpalshScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    waitfortime();
   }
 
   waitfortime() async {
