@@ -46,12 +46,14 @@ class _SpalshScreenState extends State<SpalshScreen> {
       print("No User Found");
 
       if (session.getBool("loaded") == null) {
+        print("New User Matched");
         Navigator.of(context).pop();
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) {
           return guideScreen();
         }));
       } else {
+        print("New User");
         Navigator.of(context).pop();
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) {
