@@ -25,17 +25,17 @@ Future<bool> checkUserindb(BuildContext context) async {
 
       var data = value.docs.first.data() as dynamic;
 
-      // if (data["role"].toString().toLowerCase() == "user" && data["isUser"]) {
-      //   replaceScreen(context, HomePageUser());
-      // } else {
-      //   if (data["role"].toString().toLowerCase() == "salon" &&
-      //       data["isSalon"]) {
-      //     replaceScreen(context, SalonHomePage());
-      //   } else if (data["role"].toString().toLowerCase() == "admin" &&
-      //       data["isAdmin"]) {
-      //     nextScreen(context, AdminHome());
-      //   }
-      // }
+      if (data["role"].toString().toLowerCase() == "user" && data["isUser"]) {
+        // replaceScreen(context, HomePageUser());
+      } else {
+        if (data["role"].toString().toLowerCase() == "salon" &&
+            data["isSalon"]) {
+          // replaceScreen(context, SalonHomePage());
+        } else if (data["role"].toString().toLowerCase() == "admin" &&
+            data["isAdmin"]) {
+          // nextScreen(context, AdminHome());
+        }
+      }
 
       return false;
     }
