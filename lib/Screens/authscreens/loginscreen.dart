@@ -9,7 +9,7 @@ import 'package:mysalon/elements/namecircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/elements/fullviewbtn.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mysalon/services/firestore/checkuserindb.dart';
 
@@ -31,25 +31,25 @@ class _loginScreenState extends State<loginScreen> {
 
     SharedPreferences session = await SharedPreferences.getInstance();
 
-    // var data = {
-    //   "uid": cp!.user!.uid.toString(),
-    //   "username": cp!.user!.displayName,
-    //   "profile": cp!.user!.photoURL,
-    //   "mail": cp!.user!.email,
-    // };
+    var data = {
+      "uid": cp!.user!.uid.toString(),
+      "username": cp!.user!.displayName,
+      "profile": cp!.user!.photoURL,
+      "mail": cp!.user!.email,
+    };
 
     checkUserindb(context);
 
-    // FirebaseFirestore.instance
-    //     .collection("Users")
-    //     .doc(cp!.user!.uid)
-    //     .set(data)
-    //     .then((value) {
-    //   print("Data Added");
-    // });
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(cp!.user!.uid)
+        .set(data)
+        .then((value) {
+      print("Data Added");
+    });
 
-    // session.setBool("loginDone", true);
-    // session.setString("userId", cp!.user!.uid.toString());
+    session.setBool("loginDone", true);
+    session.setString("userId", cp!.user!.uid.toString());
   }
 
   Future<UserCredential?> signInWithGoogle() async {

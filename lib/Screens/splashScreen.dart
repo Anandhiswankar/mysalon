@@ -7,6 +7,7 @@ import 'package:mysalon/elements/alertbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mysalon/Screens/authscreens/loginscreen.dart';
 import 'package:mysalon/Screens/guideScreen/guidescreen.dart';
 import 'package:mysalon/services/firestore/checkuserindb.dart';
 import 'package:mysalon/services/permission/onStartPermisisons.dart';
@@ -54,10 +55,10 @@ class _SpalshScreenState extends State<SpalshScreen> {
       } else {
         print("New User");
         Navigator.of(context).pop();
-        // Navigator.of(context)
-        //     .pushReplacement(MaterialPageRoute(builder: (context) {
-        //   return loginScreen();
-        // }));
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) {
+          return loginScreen();
+        }));
       }
     } else {
       Navigator.of(context).pop();
