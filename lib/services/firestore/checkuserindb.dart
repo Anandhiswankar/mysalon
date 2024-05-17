@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mysalon/elements/alertbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mysalon/Screens/authscreens/newAccount.dart';
 
 Future<bool> checkUserindb(BuildContext context) async {
   var cp = FirebaseAuth.instance.currentUser;
@@ -15,10 +16,10 @@ Future<bool> checkUserindb(BuildContext context) async {
     if (value.docs.isEmpty) {
       print("User not in database");
 
-      // Navigator.of(context)
-      //     .pushReplacement(MaterialPageRoute(builder: (context) {
-      //   return const newAccount();
-      // }));
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) {
+        return const newAccount();
+      }));
       return true;
     } else {
       print("User Found in database");
