@@ -7,9 +7,10 @@ import 'package:mysalon/Screens/admin/adminhome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mysalon/Screens/authscreens/newAccount.dart';
 
-
 Future<bool> checkUserindb(BuildContext context) async {
   var cp = FirebaseAuth.instance.currentUser;
+
+  print(cp);
 
   alertBox(context);
   var cu = await FirebaseFirestore.instance
@@ -35,7 +36,7 @@ Future<bool> checkUserindb(BuildContext context) async {
       } else {
         if (data["role"].toString().toLowerCase() == "salon" &&
             data["isSalon"]) {
-           replaceScreen(context, SalonHomePage());
+          replaceScreen(context, SalonHomePage());
         } else if (data["role"].toString().toLowerCase() == "admin" &&
             data["isAdmin"]) {
           nextScreen(context, AdminHome());
