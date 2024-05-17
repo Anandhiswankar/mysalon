@@ -11,7 +11,11 @@ import 'package:mysalon/elements/namecircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/elements/fullviewbtn.dart';
 import 'package:mysalon/services/auth/getUser.dart';
+import 'package:mysalon/services/auth/saveUser.dart';
 import 'package:mysalon/elements/custominputbox.dart';
+import 'package:mysalon/Screens/user/homepageuser.dart';
+import 'package:mysalon/services/utility/changeScreen.dart';
+import 'package:mysalon/Screens/salonRegister/registerSalonA.dart';
 
 class newAccount extends StatefulWidget {
   const newAccount({super.key});
@@ -215,15 +219,15 @@ class _newAccountState extends State<newAccount> {
               Container(
                 child: InkWell(
                   onTap: () async {
-                    // if (selected == 1) {
-                    //   var cp = await storeUser(true);
-                    //   print(cp);
-                    //   if (cp) {
-                    //     nextScreen(context, HomePageUser());
-                    //   }
-                    // } else {
-                    //   nextScreen(context, registerSalonA());
-                    // }
+                    if (selected == 1) {
+                      var cp = await storeUser(true);
+                      print(cp);
+                      if (cp) {
+                        nextScreen(context, HomePageUser());
+                      }
+                    } else {
+                      nextScreen(context, registerSalonA());
+                    }
                   },
                   child: fullviewbtn(
                     inverse: true,
