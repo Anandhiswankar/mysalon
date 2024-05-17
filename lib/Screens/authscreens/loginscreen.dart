@@ -56,8 +56,13 @@ class _loginScreenState extends State<loginScreen> {
     final GoogleSignInAccount? googleSignInAccount =
         await GoogleSignIn().signIn();
 
+    if (googleSignInAccount == null) {
+      // The user canceled the sign-in
+      return null;
+    }
+
     final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
+        await googleSignInAccount.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
