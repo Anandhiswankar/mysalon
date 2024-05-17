@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mysalon/elements/namecircle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/elements/fullviewbtn.dart';
+import 'package:mysalon/services/auth/getUser.dart';
 import 'package:mysalon/elements/custominputbox.dart';
 
 class newAccount extends StatefulWidget {
@@ -33,9 +34,9 @@ class _newAccountState extends State<newAccount> {
   }
 
   load() async {
-    // await getCurrentUser().then((value) {
-    //   mail.text = value!.email.toString();
-    // });
+    await getCurrentUser().then((value) {
+      mail.text = value!.email.toString();
+    });
   }
 
   @override
