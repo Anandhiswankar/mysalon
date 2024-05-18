@@ -48,6 +48,10 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your explanation for using location services when the app is in use</string>
 
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow for update image for showcase</string>
+
+
 	<key>CFBundleURLTypes</key>
 <array>
 	<dict>
