@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "679967444799",
+    "project_id": "ziggly-60826",
+    "storage_bucket": "ziggly-60826.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679967444799:android:10380e985604a4c35c4d8a",
+        "android_client_info": {
+          "package_name": "com.signimus.ziggly.mysalon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679967444799-bks9vvpcj8rvb6jh3dm4fugqgudj4fsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8v-g4Iv8YEVOKaDe9adpxLRkptC-77SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679967444799-bks9vvpcj8rvb6jh3dm4fugqgudj4fsh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "679967444799-ta1upi241mghjr41ggppott8evgbut7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.signimus.ziggly.salon"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679967444799:android:f62de969b36f73a35c4d8a",
+        "android_client_info": {
+          "package_name": "com.signimus.ziggly.salon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679967444799-6a7tl4l6f7tdc5q6s4760d7mjo08v93e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.signimus.ziggly.salon",
+            "certificate_hash": "139cd85c25bc8a2797b7d00172c5beaeb501447a"
+          }
+        },
+        {
+          "client_id": "679967444799-bks9vvpcj8rvb6jh3dm4fugqgudj4fsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8v-g4Iv8YEVOKaDe9adpxLRkptC-77SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679967444799-bks9vvpcj8rvb6jh3dm4fugqgudj4fsh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "679967444799-ta1upi241mghjr41ggppott8evgbut7k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.signimus.ziggly.salon"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

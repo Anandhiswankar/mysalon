@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/Screens/salon/homepage.dart';
 import 'package:mysalon/Screens/admin/adminhome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mysalon/Screens/user/homepageuser.dart';
 import 'package:mysalon/Screens/authscreens/newAccount.dart';
+
 
 Future<bool> checkUserindb(BuildContext context) async {
   var cp = FirebaseAuth.instance.currentUser;
@@ -32,7 +34,7 @@ Future<bool> checkUserindb(BuildContext context) async {
       var data = value.docs.first.data() as dynamic;
 
       if (data["role"].toString().toLowerCase() == "user" && data["isUser"]) {
-        // replaceScreen(context, HomePageUser());
+        replaceScreen(context, HomePageUser());
       } else {
         if (data["role"].toString().toLowerCase() == "salon" &&
             data["isSalon"]) {
