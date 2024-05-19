@@ -45,7 +45,9 @@ class _registerSalonDState extends State<registerSalonD> {
   void initState() {
     super.initState();
 
-    updateData();
+    if (widget.isUpdate) {
+      updateData();
+    }
   }
 
   bool loading = true;
