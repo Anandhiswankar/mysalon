@@ -18,21 +18,5 @@ onStartPermission() async {
     isAllTrue = false;
   }
 
-  locationPermission = await Permission.photos.isGranted;
-
-  if (locationPermission) {
-    isAllTrue = true;
-  } else {
-    isAllTrue = false;
-  }
-
-  permissionRequest = await Permission.photos.request();
-
-  if (permissionRequest.isGranted) {
-    isAllTrue = true;
-  } else {
-    isAllTrue = false;
-  }
-
   return isAllTrue;
 }
