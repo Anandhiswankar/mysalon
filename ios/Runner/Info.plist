@@ -50,6 +50,7 @@
 
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Your custom message explaining why the app needs access to the photo library</string>
+	
 
 	<key>CFBundleURLTypes</key>
 <array>
