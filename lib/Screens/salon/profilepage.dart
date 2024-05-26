@@ -44,14 +44,30 @@ class _ProfilePageSalonOwnerState extends State<ProfilePageSalonOwner> {
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.all(10),
-                      child: Text(
-                        "Profile",
-                        style: GoogleFonts.inter(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            "Profile",
+                            style: GoogleFonts.inter(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 20,

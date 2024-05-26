@@ -38,7 +38,7 @@ class _MyBookingState extends State<MyBooking> {
   dynamic salonMedia;
 
   loadData() async {
-    mybookingdata = await getMyBooking();
+    mybookingdata = await getMyBooking() ?? [];
     setState(() {});
   }
 
@@ -47,77 +47,76 @@ class _MyBookingState extends State<MyBooking> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: mybookingdata == null
-              ? screenLoader()
-              : Column(
-                  children: [
-                    TopBarLabel(label: "My Booking"),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width,
-                    //   height: 60,
-                    //   padding: EdgeInsets.all(5),
-                    //   child: SingleChildScrollView(
-                    //     scrollDirection: Axis.horizontal,
-                    //     child: Row(
-                    //       children: [
-                    //         ElevatedButton(
-                    //             style: ElevatedButton.styleFrom(
-                    //                 backgroundColor: Colors.black,
-                    //                 foregroundColor: Colors.white),
-                    //             onPressed: () {},
-                    //             child: Text("All")),
-                    //         SizedBox(
-                    //           width: 10,
-                    //         ),
-                    //         ElevatedButton(
-                    //             style: ElevatedButton.styleFrom(
-                    //                 backgroundColor: primeColor,
-                    //                 foregroundColor: Colors.white),
-                    //             onPressed: () {},
-                    //             child: Text("Pending")),
-                    //         SizedBox(
-                    //           width: 10,
-                    //         ),
-                    //         ElevatedButton(
-                    //             style: ElevatedButton.styleFrom(
-                    //                 backgroundColor: primeColor,
-                    //                 foregroundColor: Colors.white),
-                    //             onPressed: () {},
-                    //             child: Text("Upcomming")),
-                    //         SizedBox(
-                    //           width: 10,
-                    //         ),
-                    //         true
-                    //             ? ElevatedButton(
-                    //                 style: ElevatedButton.styleFrom(
-                    //                     backgroundColor: primeColor,
-                    //                     foregroundColor: Colors.white),
-                    //                 onPressed: () {},
-                    //                 child: Text("Completed"))
-                    //             : SizedBox()
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: (170 * mybookingdata!.length).toDouble(),
-                      child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: mybookingdata!.length,
-                          itemBuilder: (context, index) {
-                            return SalonAppointmentCard(
-                              isDone: mybookingdata![index]["isDone"],
-                              isRevied: index <= 5,
-                              bookingData: mybookingdata![index],
-                            );
-                          }),
-                    ),
-                  ],
-                ),
+          child: Column(
+            children: [
+              TopBarLabel(label: "My Booking"),
+              SizedBox(
+                height: 10,
+              ),
+              mybookingdata!.isEmpty ? Text("No Data Found") : SizedBox(),
+              // Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   height: 60,
+              //   padding: EdgeInsets.all(5),
+              //   child: SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(
+              //       children: [
+              //         ElevatedButton(
+              //             style: ElevatedButton.styleFrom(
+              //                 backgroundColor: Colors.black,
+              //                 foregroundColor: Colors.white),
+              //             onPressed: () {},
+              //             child: Text("All")),
+              //         SizedBox(
+              //           width: 10,
+              //         ),
+              //         ElevatedButton(
+              //             style: ElevatedButton.styleFrom(
+              //                 backgroundColor: primeColor,
+              //                 foregroundColor: Colors.white),
+              //             onPressed: () {},
+              //             child: Text("Pending")),
+              //         SizedBox(
+              //           width: 10,
+              //         ),
+              //         ElevatedButton(
+              //             style: ElevatedButton.styleFrom(
+              //                 backgroundColor: primeColor,
+              //                 foregroundColor: Colors.white),
+              //             onPressed: () {},
+              //             child: Text("Upcomming")),
+              //         SizedBox(
+              //           width: 10,
+              //         ),
+              //         true
+              //             ? ElevatedButton(
+              //                 style: ElevatedButton.styleFrom(
+              //                     backgroundColor: primeColor,
+              //                     foregroundColor: Colors.white),
+              //                 onPressed: () {},
+              //                 child: Text("Completed"))
+              //             : SizedBox()
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: (170 * mybookingdata!.length).toDouble(),
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: mybookingdata!.length,
+                    itemBuilder: (context, index) {
+                      return SalonAppointmentCard(
+                        isDone: mybookingdata![index]["isDone"],
+                        isRevied: index <= 5,
+                        bookingData: mybookingdata![index],
+                      );
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

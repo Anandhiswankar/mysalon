@@ -8,11 +8,17 @@ warningBox(BuildContext context, String title) {
     builder: (BuildContext context) {
       return AlertDialog(
         icon: Icon(
-          Icons.warning_amber,
+          Icons.info,
           color: Colors.red,
           size: 40,
         ),
         title: Text(title),
+        content: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text("close"),
+        ),
       ); // Show the loading popup
     },
   );

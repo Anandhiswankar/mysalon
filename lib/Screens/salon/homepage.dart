@@ -1,11 +1,6 @@
-import 'package:intl/intl.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mysalon/elements/color.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mysalon/elements/lightlabel.dart';
 import 'package:mysalon/elements/screenloader.dart';
 import 'package:mysalon/services/auth/getUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

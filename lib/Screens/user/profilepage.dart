@@ -35,14 +35,30 @@ class _ProfilePageUserState extends State<ProfilePageUser> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.all(10),
-                child: Text(
-                  "Profile",
-                  style: GoogleFonts.inter(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20),
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.all(10),
+                    child: Text(
+                      "Profile",
+                      style: GoogleFonts.inter(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 20,
@@ -92,46 +108,46 @@ class _ProfilePageUserState extends State<ProfilePageUser> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.95,
-                height: 60,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.5,
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.circular(10)),
-                child: InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.edit,
-                        color: primeColor,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        "About",
-                        style: GoogleFonts.inter(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: primeColor,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.95,
+              //   height: 60,
+              //   decoration: BoxDecoration(
+              //       border: Border.all(
+              //         width: 0.5,
+              //         color: Colors.black,
+              //       ),
+              //       borderRadius: BorderRadius.circular(10)),
+              //   child: InkWell(
+              //     onTap: () {},
+              //     child: Row(
+              //       children: [
+              //         SizedBox(
+              //           width: 20,
+              //         ),
+              //         Icon(
+              //           Icons.edit,
+              //           color: primeColor,
+              //         ),
+              //         SizedBox(
+              //           width: 20,
+              //         ),
+              //         Text(
+              //           "About",
+              //           style: GoogleFonts.inter(
+              //               color: Colors.black, fontWeight: FontWeight.bold),
+              //         ),
+              //         Spacer(),
+              //         Icon(
+              //           Icons.arrow_forward_ios,
+              //           color: primeColor,
+              //         ),
+              //         SizedBox(
+              //           width: 20,
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 15,
               ),

@@ -85,7 +85,11 @@ class _BookAppointmentState extends State<BookAppointment> {
 
     var data = await getCanceledSlots(context, DateTime.now());
 
-    cancelList = data["canceledSlot"];
+    if (data != null) {
+      cancelList = data["canceledSlot"];
+      setState(() {});
+    }
+
     setState(() {});
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mysalon/elements/color.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mysalon/elements/timeparse.dart';
@@ -20,6 +21,7 @@ import 'package:mysalon/Screens/user/bookAppointmentA.dart';
 import 'package:mysalon/Screens/salon/bookappointment.dart';
 import 'package:mysalon/services/utility/changeScreen.dart';
 import 'package:mysalon/services/saveData/disableSalon.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mysalon/services/initDataloader/salonloader.dart';
 import 'package:mysalon/services/location/calculateDIstance.dart';
 import 'package:mysalon/services/location/getlatloglocation.dart';
@@ -55,6 +57,12 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
     getminLocation();
 
     load();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   var distance = 0.0;
@@ -117,21 +125,37 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
     setState(() {});
 
     for (int i = 0; i < slideShowImages.length; i++) {
-      var wid = Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: Colors.black,
-            boxShadow: [
-              BoxShadow(
-                  blurRadius: 10,
-                  spreadRadius: 1.5,
-                  offset: Offset(0, 5),
-                  color: Color.fromARGB(156, 61, 61, 61))
-            ],
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-                image: NetworkImage(slideShowImages[i]), fit: BoxFit.cover)),
-      );
+      var wid = CachedNetworkImage(
+          imageUrl: slideShowImages[i],
+          progressIndicatorBuilder: (context, url, progress) {
+            return Center(
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: CircularProgressIndicator(
+                  color: primeColor,
+                  value: progress.progress,
+                ),
+              ),
+            );
+          },
+          imageBuilder: (context, imageProvider) {
+            return Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 10,
+                        spreadRadius: 1.5,
+                        offset: Offset(0, 5),
+                        color: Color.fromARGB(156, 61, 61, 61))
+                  ],
+                  borderRadius: BorderRadius.circular(20),
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.cover)),
+            );
+          });
 
       slideChild.add(wid);
 
@@ -172,7 +196,8 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
-      throw 'Could not launch $url';
+      print('Could not open Link');
+      Fluttertoast.showToast(msg: "Error to Open Link");
     }
   }
 
@@ -187,7 +212,8 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
     if (await canLaunch(mapsUrl)) {
       await launch(mapsUrl);
     } else {
-      throw 'Could not open maps application.';
+      print('Could not open maps application.');
+      Fluttertoast.showToast(msg: "Error to Start Map Application");
     }
   }
 

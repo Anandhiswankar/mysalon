@@ -15,6 +15,7 @@ import 'package:mysalon/services/utility/changeScreen.dart';
 import 'package:mysalon/services/getData/getUserSlider.dart';
 import 'package:mysalon/services/notification/updatetoken.dart';
 import 'package:mysalon/services/getData/getSameCitySalon.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mysalon/services/location/getlatloglocation.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
@@ -96,21 +97,53 @@ class _HomePageUserState extends State<HomePageUser> {
 
     if (slideShowImages.isNotEmpty) {
       for (int i = 0; i < slideShowImages.length; i++) {
-        var wid = Container(
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: Colors.black,
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 10,
-                    spreadRadius: 1.5,
-                    offset: Offset(0, 5),
-                    color: Color.fromARGB(156, 61, 61, 61))
-              ],
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                  image: NetworkImage(slideShowImages[i]), fit: BoxFit.cover)),
-        );
+        // var wid = Container(
+        //   margin: EdgeInsets.all(10),
+        //   decoration: BoxDecoration(
+        //       color: Colors.black,
+        //       boxShadow: [
+        //         BoxShadow(
+        //             blurRadius: 10,
+        //             spreadRadius: 1.5,
+        //             offset: Offset(0, 5),
+        //             color: Color.fromARGB(156, 61, 61, 61))
+        //       ],
+        //       borderRadius: BorderRadius.circular(20),
+        //       image: DecorationImage(
+        //           image: NetworkImage(slideShowImages[i]), fit: BoxFit.cover)),
+        // );
+
+        var wid = CachedNetworkImage(
+            imageUrl: slideShowImages[i],
+            progressIndicatorBuilder: (context, url, progress) {
+              return Center(
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: CircularProgressIndicator(
+                    color: primeColor,
+                    value: progress.progress,
+                  ),
+                ),
+              );
+            },
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 10,
+                          spreadRadius: 1.5,
+                          offset: Offset(0, 5),
+                          color: Color.fromARGB(156, 61, 61, 61))
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover)),
+              );
+            });
 
         slideChild.add(wid);
       }

@@ -41,7 +41,7 @@ class _loginScreenState extends State<loginScreen> {
     checkUserindb(context);
 
     FirebaseFirestore.instance
-        .collection("Users")
+        .collection("users")
         .doc(cp!.user!.uid)
         .set(data)
         .then((value) {
@@ -52,17 +52,32 @@ class _loginScreenState extends State<loginScreen> {
     session.setString("userId", cp!.user!.uid.toString());
   }
 
+  // Future<UserCredential?> signInWithGoogle() async {
+  //   final GoogleSignInAccount? googleSignInAccount =
+  //       await GoogleSignIn().signIn();
+
+  //   if (googleSignInAccount == null) {
+  //     // The user canceled the sign-in
+  //     return null;
+  //   }
+
+  //   final GoogleSignInAuthentication googleSignInAuthentication =
+  //       await googleSignInAccount.authentication;
+
+  //   final OAuthCredential credential = GoogleAuthProvider.credential(
+  //     accessToken: googleSignInAuthentication.accessToken,
+  //     idToken: googleSignInAuthentication.idToken,
+  //   );
+
+  //   return await FirebaseAuth.instance.signInWithCredential(credential);
+  // }
+
   Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignInAccount? googleSignInAccount =
         await GoogleSignIn().signIn();
 
-    if (googleSignInAccount == null) {
-      // The user canceled the sign-in
-      return null;
-    }
-
     final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+        await googleSignInAccount!.authentication;
 
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
