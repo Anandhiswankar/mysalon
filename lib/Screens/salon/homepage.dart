@@ -66,7 +66,7 @@ class _SalonHomePageState extends State<SalonHomePage> {
   }
 
   loadData() async {
-    updatetoken(context);
+    // updatetoken(context); //removed
 
     salonMedia = await getSalonMedia(context);
     salonInfo = await getSalonInfo(context);

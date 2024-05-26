@@ -66,7 +66,7 @@ class _HomePageUserState extends State<HomePageUser> {
   }
 
   load() async {
-    updatetoken(context);
+    // updatetoken(context);  removed
 
     SameCitySalon = await getSameCitySalon();
 

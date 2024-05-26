@@ -58,7 +58,7 @@ class _AdminHomeState extends State<AdminHome> {
   List<QueryDocumentSnapshot<dynamic>> paymentCount = [];
 
   load() async {
-    updatetoken(context);
+    // updatetoken(context);  //removed
     var data = await getUserSlider();
 
     if (data != null) {
