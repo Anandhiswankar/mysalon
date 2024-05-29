@@ -41,7 +41,7 @@ class _loginScreenState extends State<loginScreen> {
     checkUserindb(context);
 
     FirebaseFirestore.instance
-        .collection("users")
+        .collection("Users")
         .doc(cp!.user!.uid)
         .set(data)
         .then((value) {
