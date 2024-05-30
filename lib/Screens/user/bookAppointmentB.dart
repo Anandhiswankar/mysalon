@@ -11,10 +11,10 @@ import 'package:mysalon/elements/fullviewbtn.dart';
 import 'package:mysalon/services/auth/getUser.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:mysalon/elements/custominputbox.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:mysalon/Screens/user/payment/payment.dart';
 import 'package:mysalon/services/utility/changeScreen.dart';
 import 'package:mysalon/services/initDataloader/salonloader.dart';
-// import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class BookAppointmentB extends StatefulWidget {
   final dynamic data;
@@ -35,7 +35,7 @@ class _BookAppointmentBState extends State<BookAppointmentB> {
 
   int selectedSpecialist = 999;
 
-  // late Razorpay razorpay;
+  late Razorpay razorpay;
 
   @override
   void initState() {
@@ -43,80 +43,81 @@ class _BookAppointmentBState extends State<BookAppointmentB> {
 
     loadData();
 
-    // razorpay = Razorpay();
-    // // Set up event handlers
-    // razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, errorHandler);
-    // razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, successHandler);
-    // razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalWalletHandler);  //removed
+    razorpay = Razorpay();
+    // Set up event handlers
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, errorHandler);
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, successHandler);
+    razorpay.on(
+        Razorpay.EVENT_EXTERNAL_WALLET, externalWalletHandler); //removed
   }
 
-  // void errorHandler(PaymentFailureResponse response) {
-  //   // Display a red-colored SnackBar with the error message
-  //   // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //   //   content: Text(response.message!),
-  //   //   backgroundColor: Colors.red,
-  //   // ));
+  void errorHandler(PaymentFailureResponse response) {
+    // Display a red-colored SnackBar with the error message
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Text(response.message!),
+    //   backgroundColor: Colors.red,
+    // ));
 
-  //   var data = {
-  //     ...updatedData,
-  //     "paymentCode": response.code,
-  //     "paymentMsg": response.message,
-  //     "paymentError": response.error,
-  //     "paymentID": "",
-  //     "orderID": "",
-  //     "paymentSignature": "",
-  //     "paymentWallet": ""
-  //   };
+    var data = {
+      ...updatedData,
+      "paymentCode": response.code,
+      "paymentMsg": response.message,
+      "paymentError": response.error,
+      "paymentID": "",
+      "orderID": "",
+      "paymentSignature": "",
+      "paymentWallet": ""
+    };
 
-  //   nextScreen(
-  //       context,
-  //       PaymentScreen(
-  //         data: data,
-  //         paymentDone: false,
-  //       ));
-  // }
+    nextScreen(
+        context,
+        PaymentScreen(
+          data: data,
+          paymentDone: false,
+        ));
+  }
 
-  // void successHandler(PaymentSuccessResponse response) {
-  //   // Display a green-colored SnackBar with the payment ID
+  void successHandler(PaymentSuccessResponse response) {
+    // Display a green-colored SnackBar with the payment ID
 
-  //   var data = {
-  //     ...updatedData,
-  //     "paymentCode": "",
-  //     "paymentMsg": "",
-  //     "paymentError": "",
-  //     "paymentID": response.paymentId,
-  //     "orderID": response.orderId,
-  //     "paymentSignature": response.signature,
-  //     "paymentWallet": ""
-  //   };
-  //   nextScreen(
-  //       context,
-  //       PaymentScreen(
-  //         data: data,
-  //         paymentDone: true,
-  //       ));
-  // }
+    var data = {
+      ...updatedData,
+      "paymentCode": "",
+      "paymentMsg": "",
+      "paymentError": "",
+      "paymentID": response.paymentId,
+      "orderID": response.orderId,
+      "paymentSignature": response.signature,
+      "paymentWallet": ""
+    };
+    nextScreen(
+        context,
+        PaymentScreen(
+          data: data,
+          paymentDone: true,
+        ));
+  }
 
-  // void externalWalletHandler(ExternalWalletResponse response) {
-  //   // Display a green-colored SnackBar with the name of the external wallet used
+  void externalWalletHandler(ExternalWalletResponse response) {
+    // Display a green-colored SnackBar with the name of the external wallet used
 
-  //   var data = {
-  //     ...updatedData,
-  //     "paymentCode": "",
-  //     "paymentMsg": "",
-  //     "paymentError": "",
-  //     "paymentID": "",
-  //     "orderID": "",
-  //     "paymentSignature": "",
-  //     "paymentWallet": response.walletName
-  //   };
-  //   nextScreen(
-  //       context,
-  //       PaymentScreen(
-  //         data: data,
-  //         paymentDone: true,
-  //       ));
-  // }
+    var data = {
+      ...updatedData,
+      "paymentCode": "",
+      "paymentMsg": "",
+      "paymentError": "",
+      "paymentID": "",
+      "orderID": "",
+      "paymentSignature": "",
+      "paymentWallet": response.walletName
+    };
+    nextScreen(
+        context,
+        PaymentScreen(
+          data: data,
+          paymentDone: true,
+        ));
+  }
 
   var mediaData = {};
   var specialist = {};
@@ -150,7 +151,7 @@ class _BookAppointmentBState extends State<BookAppointmentB> {
         "email": user!.email,
       }
     };
-    // razorpay.open(options);
+    razorpay.open(options);
   }
 
   @override
