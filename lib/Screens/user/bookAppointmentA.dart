@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mysalon/elements/lightlabel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mysalon/elements/getweekdays.dart';
 import 'package:mysalon/elements/fullviewbtn.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +18,7 @@ import 'package:mysalon/services/getData/getBookedSlots.dart';
 import 'package:mysalon/services/getData/getBookingCost.dart';
 import 'package:mysalon/services/getData/getCanceledSlots.dart';
 import 'package:mysalon/services/initDataloader/salonloader.dart';
+import 'package:mysalon/services/getData/getsalonworkingdays.dart';
 
 class BookAppointmentA extends StatefulWidget {
   final dynamic data;
@@ -115,15 +117,24 @@ class _BookAppointmentAState extends State<BookAppointmentA> {
   }
 
   List<String> generateHoursListNoon() {
-    int currentHour = DateTime.now().hour % 12;
+    int currentHour = DateTime.now().hour;
+
+    // Adjust to 12-hour format and PM only
+    currentHour = currentHour % 12;
     currentHour = currentHour == 0 ? 12 : currentHour;
 
+    // If it's before noon, convert to PM hours
+    if (DateTime.now().hour < 12) {
+      currentHour += 12;
+    }
+
     List<String> hoursList = [];
-    for (int i = 1; i <= 6; i++) {
-      if (i > currentHour ||
-          DateTime.parse(selectedDate.toString().split(" ").first)
-              .isAfter(DateTime.now())) {
-        hoursList.add('${i.toString().padLeft(2, '0')}:00 PM');
+    for (int i = 13; i <= 18; i++) {
+      if (i >= currentHour) {
+        int displayHour = i > 12 ? i - 12 : i;
+        hoursList.add('${displayHour.toString().padLeft(2, '0')}:00 PM');
+      } else {
+        print("Looping condition is false");
       }
     }
     return hoursList;
@@ -145,6 +156,12 @@ class _BookAppointmentAState extends State<BookAppointmentA> {
   }
 
   loadValues() async {
+    var salonworkingday = await getsalonworkingdays(widget.data["id"]);
+
+    print("list of salon working days");
+    print(salonworkingday);
+    print(getWeekDays());
+
     _morningSlot = generateHoursList();
     afternoonSlot = generateHoursListNoon();
     eveningSlot = generateHoursListEve();
@@ -171,16 +188,20 @@ class _BookAppointmentAState extends State<BookAppointmentA> {
 
     print("Chairs: " + salonData!["chairs"].toString());
 
-    for (int i = 0; i < bookedSlots!.length; i++) {
-      var element = bookedSlots![i].data();
+    if (bookedSlots != null) {
+      for (int i = 0; i < bookedSlots!.length; i++) {
+        var element = bookedSlots![i].data();
 
-      List<QueryDocumentSnapshot<dynamic>>? slotslist =
-          await getSalonBookedSlotByTimeDate(
-              widget.data['id'], element["bookedSlot"], selectedDate);
+        List<QueryDocumentSnapshot<dynamic>>? slotslist =
+            await getSalonBookedSlotByTimeDate(
+                widget.data['id'], element["bookedSlot"], selectedDate);
 
-      if (slotslist!.length >= salonData["chairs"]) {
-        cancelList.add(element["bookedSlot"]);
-        setState(() {});
+        if (slotslist != null) {
+          if (slotslist!.length >= salonData["chairs"]) {
+            cancelList.add(element["bookedSlot"]);
+            setState(() {});
+          }
+        }
       }
     }
   }

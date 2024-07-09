@@ -151,7 +151,7 @@ class _SalonAppointmentCardState extends State<SalonAppointmentCard> {
             Stack(
               children: [
                 Container(
-                  width: 150,
+                  width: 120,
                   height: 150,
                   decoration: BoxDecoration(
                       color: Colors.amber,
@@ -197,7 +197,7 @@ class _SalonAppointmentCardState extends State<SalonAppointmentCard> {
               ],
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.50,
+              width: MediaQuery.of(context).size.width * 0.55,
               height: 150,
               child: Column(
                 children: [

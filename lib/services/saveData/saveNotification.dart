@@ -39,6 +39,10 @@ saveNotificationAdmin(BuildContext context, String msg, String action) async {
 
   var admin = await GetAdminData();
 
+  if (admin == null) {
+    return;
+  }
+
   String toId = admin[0].uid;
 
   var data = {

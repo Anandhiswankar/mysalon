@@ -355,7 +355,8 @@ class _SalonHomePageState extends State<SalonHomePage> {
                                           width: 5,
                                         ),
                                         Text(
-                                          tomCount.toString(),
+                                          (tomCount > 10 ? "10+" : tomCount)
+                                              .toString(),
                                           style: GoogleFonts.jetBrainsMono(
                                               color: Colors.white,
                                               fontSize: 25),
@@ -366,7 +367,7 @@ class _SalonHomePageState extends State<SalonHomePage> {
                                       height: 15,
                                     ),
                                     Text(
-                                      "Tomorrow",
+                                      "All",
                                       style: GoogleFonts.jetBrainsMono(
                                           color: Colors.white, fontSize: 15),
                                     ),

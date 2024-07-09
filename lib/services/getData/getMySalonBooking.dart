@@ -10,18 +10,33 @@ Future<List?> getMySalonBooking(String fiilter) async {
   try {
     var salonId = FirebaseAuth.instance.currentUser!.uid;
 
-    DateFormat dateFormat = DateFormat("dd-M-yyyy");
+    DateFormat dateFormat = DateFormat("dd-MM-yyyy");
 
     // Format the DateTime object into a string
     String datetime = dateFormat.format(DateTime.now());
 
+    QuerySnapshot appointmentsSnapshot = await FirebaseFirestore.instance
+        .collection("salons")
+        .doc(salonId)
+        .collection("bookedAppointments")
+        .where("selectedDate", isEqualTo: datetime)
+        .orderBy("timestamp", descending: true)
+        .get();
+
     if (fiilter == "tom") {
-      datetime = dateFormat.format(DateTime.now().add(const Duration(days: 1)));
+      appointmentsSnapshot = await FirebaseFirestore.instance
+          .collection("salons")
+          .doc(salonId)
+          .collection("bookedAppointments")
+          .orderBy("timestamp", descending: true)
+          .get();
     }
 
     print("Date Time loader");
 
     print(datetime);
+
+    print(appointmentsSnapshot.docs.length);
 
     List<Map<String, dynamic>> mainData = [];
 
@@ -32,13 +47,6 @@ Future<List?> getMySalonBooking(String fiilter) async {
     // Iterate through each booking
 
     // Fetch booked appointments for each salon
-    QuerySnapshot appointmentsSnapshot = await FirebaseFirestore.instance
-        .collection("salons")
-        .doc(salonId)
-        .collection("bookedAppointments")
-        .where("selectedDate", isEqualTo: datetime)
-        .orderBy("timestamp", descending: true)
-        .get();
 
     // Process appointmentsSnapshot and add data to mainData
     appointmentsSnapshot.docs.forEach((appointmentDoc) {

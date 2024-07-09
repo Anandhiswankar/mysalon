@@ -90,7 +90,7 @@ class _CitySalonCardState extends State<CitySalonCard> {
 
     var salonLocation = widget.salondata["location"];
 
-    Location loc1 = new Location(mycity["lat"], mycity["long"]);
+    Location loc1 = new Location(mycity["lat"]!, mycity["long"]!);
 
     Location loc2 = new Location(salonLocation["lat"], salonLocation["long"]);
 

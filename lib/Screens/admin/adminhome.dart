@@ -14,6 +14,7 @@ import 'package:mysalon/Screens/admin/adsRequest.dart';
 import 'package:mysalon/Screens/admin/ListOfUser.dart';
 import 'package:mysalon/Screens/admin/editBanner.dart';
 import 'package:mysalon/Screens/admin/ListOfSalon.dart';
+import 'package:mysalon/Screens/salon/notification.dart';
 import 'package:mysalon/services/utility/changeScreen.dart';
 import 'package:mysalon/Screens/admin/boookingSettings.dart';
 import 'package:mysalon/services/getData/getadminstate.dart';
@@ -190,7 +191,9 @@ class _AdminHomeState extends State<AdminHome> {
                                 size: 40,
                               ),
                               Text(
-                                "Admin Name",
+                                FirebaseAuth
+                                        .instance.currentUser!.displayName ??
+                                    "Admin Name",
                                 style: GoogleFonts.inter(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -202,13 +205,18 @@ class _AdminHomeState extends State<AdminHome> {
                       ),
                     ),
                     Spacer(),
-                    Container(
-                      margin: EdgeInsets.only(right: 20),
-                      child: CircleAvatar(
-                        backgroundColor: primeColor.withOpacity(0.2),
-                        child: Icon(
-                          Icons.notifications,
-                          color: primeColor,
+                    InkWell(
+                      onTap: () {
+                        nextScreen(context, NotificationSalonOwner());
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20),
+                        child: CircleAvatar(
+                          backgroundColor: primeColor.withOpacity(0.2),
+                          child: Icon(
+                            Icons.notifications,
+                            color: primeColor,
+                          ),
                         ),
                       ),
                     )

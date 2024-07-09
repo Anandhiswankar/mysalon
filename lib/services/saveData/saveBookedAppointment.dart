@@ -42,10 +42,12 @@ saveMyBookedAppointment(BuildContext context, dynamic data) async {
 
       //j
 
-      saveNotification(
-          context, data["salonId"], "Appointment Booked", "Booking");
+      saveNotification(context, data["salonId"],
+          "Appointment Booked " + data["bookedSlot"] ?? "", "Booking");
+      saveNotification(context, FirebaseAuth.instance.currentUser!.uid,
+          "Appointment Booked " + data["bookedSlot"] ?? "", "Booking");
       saveNotificationAdmin(
-          context, "Appointment Booked Payment Recived", "Booking");
+          context, "Appointment Booked " + data["bookedSlot"] ?? "", "Booking");
 
       //hh
     }).catchError((onError) {

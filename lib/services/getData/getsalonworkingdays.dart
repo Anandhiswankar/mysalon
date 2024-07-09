@@ -5,23 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/services/auth/getUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<dynamic> GetAdminData() async {
+Future<List<dynamic>?> getsalonworkingdays(String salonId) async {
   try {
-    // var snapshot = await FirebaseFirestore.instance
-    //     .collection("Notification")
-    //     .where("from", isEqualTo: user!.uid)
-    //     .orderBy("timestamp", descending: true)
-    //     .get();
-
     var snapshot = await FirebaseFirestore.instance
-        .collection("users")
-        .where("isAdmin", isEqualTo: true)
+        .collection("salons")
+        .doc(salonId)
+        .collection("Services")
+        .doc("salons")
         .get();
 
-    print(snapshot.docs.length);
-
-    if (snapshot.docs.isNotEmpty) {
-      return snapshot.docs;
+    if (snapshot.exists) {
+      return snapshot.data()!["salonWorking"];
     } else {
       // Return null if document doesn't exist
       return null;

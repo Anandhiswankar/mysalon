@@ -43,9 +43,8 @@ class _bookinglistState extends State<bookinglist> {
         body: Column(
           children: [
             TopBarLabel(
-                label: !widget.isTom
-                    ? "Today's Appointment"
-                    : "Tomorrow Appointment"),
+                label:
+                    !widget.isTom ? "Today's Appointment" : "All Appointment"),
             // Container(
             //   width: MediaQuery.of(context).size.width,
             //   height: 60,
@@ -95,8 +94,13 @@ class _bookinglistState extends State<bookinglist> {
             // ),
             Expanded(
               child: Container(
+                alignment: Alignment.center,
                 child: todaysAppointment!.isEmpty
-                    ? screenLoader()
+                    ? Center(
+                        child: SizedBox(
+                            width: 120,
+                            height: 200,
+                            child: Text("No Data Found")))
                     : ListView.builder(
                         itemCount: todaysAppointment!.length,
                         itemBuilder: (context, index) {

@@ -38,7 +38,7 @@ class _registerSalonCState extends State<registerSalonC> {
   ];
   List<dynamic> dayOfWeekSelected = [];
 
-  List<String> solonOffers = [
+  List<dynamic> solonOffers = [
     'Haircut',
     'Hairstyling',
     'Hair Coloring',

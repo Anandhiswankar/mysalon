@@ -15,7 +15,7 @@ class AppointmentCardAdmin extends StatefulWidget {
 }
 
 class _AppointmentCardAdminState extends State<AppointmentCardAdmin> {
-  List<String> solonOffers = [
+  List<dynamic> solonOffers = [
     'Haircut',
     'Hairstyling',
   ];

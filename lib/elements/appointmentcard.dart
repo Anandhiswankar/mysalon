@@ -14,7 +14,7 @@ class AppointmentCard extends StatefulWidget {
 }
 
 class _AppointmentCardState extends State<AppointmentCard> {
-  List<String> solonOffers = [
+  List<dynamic> solonOffers = [
     'Haircut',
     'Hairstyling',
   ];
@@ -29,6 +29,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
 
     loadData();
   }
+
+  String apoDate = "";
 
   loadData() async {
     print(widget.bookingData);
@@ -45,6 +47,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
 
     // Parse the combined string into a DateTime object
     DateTime dateTime = dateFormat.parse(combinedStr);
+
+    apoDate = dateTime.toString();
 
     if (dateTime.isBefore(DateTime.now())) {
       status = "Completed";
@@ -112,7 +116,12 @@ class _AppointmentCardState extends State<AppointmentCard> {
                               width: 10,
                             ),
                             Text(
-                              widget.bookingData["bookedSlot"].toString() ?? "",
+                              // widget.bookingData["bookedSlot"].toString() ?? "",
+                              apoDate.split(" ").first.toString() +
+                                      " - " +
+                                      widget.bookingData["bookedSlot"]
+                                          .toString() ??
+                                  "",
                               style: GoogleFonts.inter(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),

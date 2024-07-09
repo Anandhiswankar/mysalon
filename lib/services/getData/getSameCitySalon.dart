@@ -45,11 +45,11 @@ Future<List<Map<String, dynamic>>?> getSameCitySalon() async {
         .get();
 
     var salonCity =
-        await getAddressFromLocationwithlatlang(salonloc["location"]);
+        await getAddressFromLocationWithLatLong(salonloc["location"]);
 
     var salonLocation = salonloc["location"];
 
-    Location loc1 = new Location(myloc["lat"], myloc["long"]);
+    Location loc1 = new Location(myloc["lat"]!, myloc["long"]!);
 
     Location loc2 = new Location(salonLocation["lat"], salonLocation["long"]);
 

@@ -18,3 +18,14 @@ disableUser(BuildContext context, String userId, bool status) {
     print("Error to save status");
   });
 }
+
+updateAdminStatus(BuildContext context, String userId, bool status) {
+  FirebaseFirestore.instance.collection("users").doc(userId).set(
+      {"isAdmin": status, "role": status ? "admin" : "user"},
+      SetOptions(merge: true)).then((value) {
+    print("Updated");
+    warningBox(context, "Updated");
+  }).onError((error, stackTrace) {
+    print("Error to save status");
+  });
+}

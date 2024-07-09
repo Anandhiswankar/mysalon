@@ -88,7 +88,7 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
 
     var salonLocation = widget.salonData["location"];
 
-    Location loc1 = new Location(mycity["lat"], mycity["long"]);
+    Location loc1 = new Location(mycity["lat"]!, mycity["long"]!);
 
     Location loc2 = new Location(salonLocation["lat"], salonLocation["long"]);
 
@@ -256,21 +256,28 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
               height: 320,
               child: Stack(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 250,
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.95,
-                      height: 250,
-                      decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: NetworkImage(salonImages["salonCover"] ??
-                                  "https://images.squarespace-cdn.com/content/v1/5b4818cdd274cba3ecbed6f9/de90d39c-1fca-48ba-93a8-7e6fb07fdd70/Salon+hero.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
+                  CachedNetworkImage(
+                    imageUrl: salonImages["salonCover"] ??
+                        "https://images.squarespace-cdn.com/content/v1/5b4818cdd274cba3ecbed6f9/de90d39c-1fca-48ba-93a8-7e6fb07fdd70/Salon+hero.jpg",
+                    imageBuilder: (context, provider) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 250,
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          height: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  image: provider, fit: BoxFit.cover)),
+                        ),
+                      );
+                    },
+                    progressIndicatorBuilder: (context, url, progress) {
+                      return screenLoader();
+                    },
                   ),
                   Positioned(
                       right: 20,
@@ -305,28 +312,40 @@ class _SalonInfoPageState extends State<SalonInfoPage> {
                           ))),
                   Positioned(
                       bottom: 0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 180,
-                        alignment: Alignment.center,
-                        child: Container(
-                          width: 170,
-                          height: 170,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(143, 84, 84, 84),
-                                    spreadRadius: 2.0,
-                                    blurRadius: 2)
-                              ],
-                              image: DecorationImage(
-                                  image: NetworkImage(salonImages[
-                                          "salonLogo"] ??
-                                      "https://cdn.dribbble.com/users/2984251/screenshots/16200026/media/5f404ede522388e2e56976dad9c265f1.jpg?resize=400x300&vertical=center"),
-                                  fit: BoxFit.cover),
-                              shape: BoxShape.circle,
-                              color: Colors.yellow),
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl: salonImages["salonLogo"] ??
+                            "https://cdn.dribbble.com/users/2984251/screenshots/16200026/media/5f404ede522388e2e56976dad9c265f1.jpg?resize=400x300&vertical=center",
+                        imageBuilder: (context, provider) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 180,
+                            alignment: Alignment.center,
+                            child: Container(
+                              width: 170,
+                              height: 170,
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color.fromARGB(143, 84, 84, 84),
+                                        spreadRadius: 2.0,
+                                        blurRadius: 2)
+                                  ],
+                                  image: DecorationImage(
+                                      image: provider, fit: BoxFit.cover),
+                                  shape: BoxShape.circle,
+                                  color: Colors.yellow),
+                            ),
+                          );
+                        },
+                        progressIndicatorBuilder: (context, url, progress) {
+                          return Center(
+                            child: SizedBox(
+                              width: 10,
+                              height: 10,
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        },
                       ))
                 ],
               ),

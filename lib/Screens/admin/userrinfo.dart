@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:mysalon/elements/color.dart';
 import 'package:mysalon/elements/topbar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mysalon/elements/reviewcard.dart';
 import 'package:mysalon/elements/lightlabel.dart';
 import 'package:mysalon/elements/appointmentcard.dart';
@@ -27,6 +29,8 @@ class _UserInfoAdminState extends State<UserInfoAdmin> {
 
   List<dynamic>? reviewdata = [];
 
+  bool isAdmin = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -34,13 +38,19 @@ class _UserInfoAdminState extends State<UserInfoAdmin> {
 
     load();
     getAppointment();
+    checkadmin();
   }
+
+  checkadmin() {}
 
   dynamic user = {};
 
   load() async {
     user = await getUserById(widget.userData["uid"]);
     isEnable = user["isEnable"];
+    setState(() {});
+
+    isAdmin = user["isAdmin"];
     setState(() {});
   }
 
@@ -49,6 +59,16 @@ class _UserInfoAdminState extends State<UserInfoAdmin> {
     reviewdata = await getSalonReviewsByUserId(widget.userData["uid"]);
 
     setState(() {});
+  }
+
+  updateAdmin(e) {
+    if (widget.userData["uid"] != FirebaseAuth.instance.currentUser!.uid) {
+      isAdmin = e;
+      updateAdminStatus(context, widget.userData["uid"], e);
+      setState(() {});
+    } else {
+      Fluttertoast.showToast(msg: "You can't disable self permission");
+    }
   }
 
   @override
@@ -61,7 +81,7 @@ class _UserInfoAdminState extends State<UserInfoAdmin> {
               TopBarLabel(label: widget.userData["displayName"]),
               Container(
                 width: MediaQuery.of(context).size.width * 0.90,
-                height: 200,
+                height: 250,
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -174,6 +194,27 @@ class _UserInfoAdminState extends State<UserInfoAdmin> {
                                           style: GoogleFonts.inter(
                                               color: Colors.black,
                                               fontSize: 18),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Admin",
+                                          style: GoogleFonts.inter(
+                                              color: primeColor),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Switch(
+                                          onChanged: (e) {
+                                            updateAdmin(e);
+                                          },
+                                          value: isAdmin,
+                                          activeColor: primeColor,
+                                          inactiveThumbColor: Colors.redAccent,
+                                          inactiveTrackColor: Colors.white,
                                         )
                                       ],
                                     )

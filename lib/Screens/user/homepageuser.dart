@@ -68,19 +68,9 @@ class _HomePageUserState extends State<HomePageUser> {
   load() async {
     // updatetoken(context);  removed
 
-    SameCitySalon = await getSameCitySalon();
+    // SameCitySalon = await getSameCitySalon();
 
     salonLoading = false;
-
-    var placeMark = await getAddressFromLocation();
-
-    mylocation = placeMark.thoroughfare.toString() +
-        " " +
-        placeMark.subLocality.toString() +
-        " " +
-        placeMark.street.toString();
-
-    setState(() {});
 
     var data = await getUserSlider();
 
@@ -149,7 +139,21 @@ class _HomePageUserState extends State<HomePageUser> {
       }
 
       setState(() {});
+
+      SameCitySalon = await getSameCitySalon();
+
+      setState(() {});
     }
+
+    var placeMark = await getAddressFromLocation();
+
+    mylocation = placeMark.thoroughfare.toString() +
+        " " +
+        placeMark.subLocality.toString() +
+        " " +
+        placeMark.street.toString();
+
+    setState(() {});
   }
 
   @override
