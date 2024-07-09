@@ -31,7 +31,7 @@ class _loginScreenState extends State<loginScreen> {
       await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
     } catch (err) {
-      print("Error to remove google account: " + err);
+      print("Error to remove google account: " + err.toString());
     }
 
     var cp = await signInWithGoogle();
